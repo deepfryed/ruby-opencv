@@ -11,13 +11,13 @@ VC : ruby extconf.rb
 =end
 require "mkmf"
 
-# -I/usr/local/include/opencv  -L/usr/local/lib -lcxcore -lcv -lhighgui -lcvaux -lml 
+# -I/usr/local/include/opencv  -L/usr/local/lib -lcxcore -lcv -lhighgui -lcvaux -lml
 
 # option "opencv"
 # extconf.rb --with-opencv-lib=/path/to/opencv/lib
 # extconf.rb --with-opencv-include=/path/to/opencv/include
 
-dir_config("opencv", "/usr/local/include/opencv", "/usr/local/lib")
+dir_config("opencv", "/usr/include/opencv", "/usr/lib")
 # if CONFIG["arch"].include?("darwin")
 	dir_config("ffcall", "/opt/local/include", "/opt/local/lib")
 # else

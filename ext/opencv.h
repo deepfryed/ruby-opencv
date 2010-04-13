@@ -15,7 +15,7 @@
 
 /* include headers */
 #include <ruby.h>
-#include <version.h>
+#include <ruby-1.9.1-p376/version.h>
 
 #ifdef RUBY_WIN32_H
 #ifdef write
@@ -28,7 +28,7 @@
 #endif
 
 extern "C"{
-#include <st.h>
+#include <ruby/st.h>
 #ifdef HAVE_CALLBACK_H
 #include <callback.h> // callhack.h is ffcall header
 #endif
@@ -305,7 +305,7 @@ __NAMESPACE_END_OPENCV
 inline VALUE
 extract_options_from_args_bang(VALUE ary)
 {
-  return (RARRAY(ary)->len > 0 && rb_obj_is_kind_of(RARRAY(ary)->ptr[RARRAY(ary)->len -1], rb_cHash)) ? rb_ary_pop(ary) : rb_hash_new();
+  return (RARRAY_LEN(ary) > 0 && rb_obj_is_kind_of(RARRAY_PTR(ary)[RARRAY_LEN(ary) -1], rb_cHash)) ? rb_ary_pop(ary) : rb_hash_new();
 }
 
 /*
@@ -329,7 +329,7 @@ assert_valid_keys(VALUE options, int n, ...){
   va_start(valid_keys, n);
   for (int i = 0; i < n; i++)
     rb_ary_delete(unknown_keys, ID2SYM(rb_intern(va_arg(valid_keys, char*))));
-  if (RARRAY(unknown_keys)->len > 0)
+  if (RARRAY_LEN(UNKNOWN_KEYS) > 0)
     rb_raise(rb_eArgError, "Unknown key(s): %s",
              RSTRING(rb_funcall(unknown_keys, rb_intern("join"), 1, rb_str_new2(", ")))->ptr);
   va_end(valid_keys);
